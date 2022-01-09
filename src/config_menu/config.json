@@ -1,0 +1,202 @@
+{
+    "about": {
+        "version": "1.0.0",
+        "author": "C69 DevTeam",
+        "author_url": "https://github.com/MayD524"
+    },
+    "general_config": {
+        "file_name": "config.json",
+        "font": "Consolas",
+        "font_size": 14,
+        "runtime_port": 8889
+    },
+    "css_settings": {
+        "votesTextColor": "rgb(111, 210, 198)",
+        "votesBackgroundColor": "rgb(0, 0, 0)",
+        "progressbarColor": "green",
+        "progressbarBackgroundColor": "rgb(0, 0, 0)",
+        "borderColor": "green",
+        "optionColor": "teal",
+        "optionTextColor": "white",
+        "optionBorderColor": "green"
+    },
+    "key_binds": {
+        "<Escape>": "quit",
+        "<Control-q>": "quit",
+        "<Control-s>": "save_config",
+        "<Control-r>": "reload_config"
+    },
+    "effects": {
+        "random_tp": {
+            "enabled": false,
+            "description": "Teleports you to a random location",
+            "command": "tp;0;player;random;-300;-50;",
+            "tts": "",
+            "rarity": 0.04
+        },
+        "too_much_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much_pork2": {
+            "enabled": false,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much_por212k": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much_pork9": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_9much_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much9_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_mu999ch_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_mu99ch_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_m99uch_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much99_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_muc9h9_pork": {
+            "enabled": false,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_muc9h_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much8_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_muc7h_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_muc6h_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_muc5h_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_mu4ch_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_mu3ch_pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much_por2k": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "too_much_1pork": {
+            "enabled": true,
+            "description": "It gives you a few pork chops",
+            "command": "give @p minecraft:porkchop 5",
+            "tts": "I am honored to present you with some pork chops",
+            "rarity": 0.01
+        },
+        "I_am_a_pig": {
+            "enabled": true,
+            "description": "You wear pork",
+            "command": "give @p minecraft:porkchop 1",
+            "tts": "Eww, you are a pig",
+            "rarity": 0.01
+        },
+        "test": {
+            "enabled": true,
+            "description": "sdfdgsdfg",
+            "command": "sdfgsdfg",
+            "tts": "sdfgsdfgsdfg",
+            "rarity": 0.4
+        }
+    },
+    "meta": {
+        "default_duration": 10,
+        "grace_period_s": 5,
+        "enabled_voting": true,
+        "enabled_tts": true,
+        "mod_enabled": true,
+        "twitch_enabled": true,
+        "random_effects": true,
+        "twitch_token": "MayActual"
+    }
+}
