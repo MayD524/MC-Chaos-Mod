@@ -85,206 +85,206 @@ public final class Main extends JavaPlugin implements Listener {
 
     }
     void task(String[] args) {
-        for (Player p : players) {
-            if (p != null) {
-                String cmd = "";
-                int duration = 0;
-                String other = "";
-                String player = "";
-                String dest = "";
-                boolean doRandom = false;
-                int xZRange = 0;
-                String xZRangeNegOrPlus = "";
-                int yRange = 0;
-                String YRangeNegOrPlus = "";
-                if (args.length < 3) {
-                    cmd = args[0];
-                    try {
-                        duration = Integer.parseInt(args[1]);
-
-                    } catch (Exception e) {
-                        other = args[1];
-                    }
-
-
-                } else if (args.length < 4) {
-                    cmd = args[0];
+        Player p = Bukkit.getPlayer(playerName);
+        if (p != null) {
+            String cmd = "";
+            int duration = 0;
+            String other = "";
+            String player = "";
+            String dest = "";
+            boolean doRandom = false;
+            int xZRange = 0;
+            String xZRangeNegOrPlus = "";
+            int yRange = 0;
+            String YRangeNegOrPlus = "";
+            if (args.length < 3) {
+                cmd = args[0];
+                try {
                     duration = Integer.parseInt(args[1]);
-                    other = args[2];
-                } else if (args.length > 3 && args.length < 5) {
-                    cmd = args[0];
-                    duration = Integer.parseInt(args[1]);
-                    other = args[2];
-                    player = args[3];
-                } else if (args.length > 5) {
-                    cmd = args[0];
-                    System.out.println("Cmd " + cmd);
-                    duration = Integer.parseInt(args[1]);
-                    System.out.println("Duration " + duration);
-                    other = args[2];
-                    System.out.println("Other" + other);
-                    dest = args[3];
-                    System.out.println("Dest " + dest);
-                    doRandom = Boolean.valueOf(args[4]);
-                    System.out.println("doRandom " + doRandom);
-                    if (args[5].startsWith("-")) {
-                        String[] temp = args[5].split("-");
-                        System.out.println(temp[0]);
-                        xZRangeNegOrPlus = "-";
-                        xZRange = Integer.parseInt(temp[1]);
-                    } else {
-                        xZRange = Integer.parseInt(args[5]);
-                    }
-                    if (args[6].startsWith("-")) {
-                        String[] temp = args[6].split("-");
-                        YRangeNegOrPlus = "-";
-                        yRange = Integer.parseInt(temp[1]);
-                    } else {
-                        yRange = Integer.parseInt(args[6]);
-                    }
+
+                } catch (Exception e) {
+                    other = args[1];
                 }
-                switch (cmd) {
-                    case "tp":
-                        if (other.equalsIgnoreCase("player")) {
-                            if (doRandom) {
-                                Random r = new Random();
-                                if (xZRangeNegOrPlus.equalsIgnoreCase("-")) {
-                                    int i = r.nextInt(2);
+
+
+            } else if (args.length < 4) {
+                cmd = args[0];
+                duration = Integer.parseInt(args[1]);
+                other = args[2];
+            } else if (args.length > 3 && args.length < 5) {
+                cmd = args[0];
+                duration = Integer.parseInt(args[1]);
+                other = args[2];
+                player = args[3];
+            } else if (args.length > 5) {
+                cmd = args[0];
+                System.out.println("Cmd " + cmd);
+                duration = Integer.parseInt(args[1]);
+                System.out.println("Duration " + duration);
+                other = args[2];
+                System.out.println("Other" + other);
+                dest = args[3];
+                System.out.println("Dest " + dest);
+                doRandom = Boolean.valueOf(args[4]);
+                System.out.println("doRandom " + doRandom);
+                if (args[5].startsWith("-")) {
+                    String[] temp = args[5].split("-");
+                    System.out.println(temp[0]);
+                    xZRangeNegOrPlus = "-";
+                    xZRange = Integer.parseInt(temp[1]);
+                } else {
+                    xZRange = Integer.parseInt(args[5]);
+                }
+                if (args[6].startsWith("-")) {
+                    String[] temp = args[6].split("-");
+                    YRangeNegOrPlus = "-";
+                    yRange = Integer.parseInt(temp[1]);
+                } else {
+                    yRange = Integer.parseInt(args[6]);
+                }
+            }
+            switch (cmd) {
+                case "tp":
+                    if (other.equalsIgnoreCase("player")) {
+                        if (doRandom) {
+                            Random r = new Random();
+                            if (xZRangeNegOrPlus.equalsIgnoreCase("-")) {
+                                int i = r.nextInt(2);
+                                int randXZ = r.nextInt(xZRange);
+                                System.out.println("I " + i);
+                                if (i == 1)
+                                    randXZ *= -1;
+                                if (YRangeNegOrPlus.equalsIgnoreCase("-")) {
+                                    int ii = r.nextInt(2);
+                                    int randY = r.nextInt(yRange);
+                                    if (i == 1)
+                                        randY *= -1;
+                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
+                                    break;
+                                } else {
+                                    int randY = r.nextInt(yRange);
+                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
+                                    break;
+                                }
+                            } else {
+                                if (YRangeNegOrPlus.equalsIgnoreCase("-")) {
                                     int randXZ = r.nextInt(xZRange);
+                                    int i = r.nextInt(2);
+                                    int randY = r.nextInt(yRange);
                                     System.out.println("I " + i);
                                     if (i == 1)
-                                        randXZ *= -1;
-                                    if (YRangeNegOrPlus.equalsIgnoreCase("-")) {
-                                        int ii = r.nextInt(2);
-                                        int randY = r.nextInt(yRange);
-                                        if (i == 1)
-                                            randY *= -1;
-                                        p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
-                                        break;
-                                    } else {
-                                        int randY = r.nextInt(yRange);
-                                        p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
-                                        break;
-                                    }
+                                        randY *= -1;
+                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
+                                    break;
                                 } else {
-                                    if (YRangeNegOrPlus.equalsIgnoreCase("-")) {
-                                        int randXZ = r.nextInt(xZRange);
-                                        int i = r.nextInt(2);
-                                        int randY = r.nextInt(yRange);
-                                        System.out.println("I " + i);
-                                        if (i == 1)
-                                            randY *= -1;
-                                        p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
-                                        break;
-                                    } else {
-                                        int randXZ = r.nextInt(xZRange);
-                                        int randY = r.nextInt(yRange);
-                                        p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
-                                        break;
-                                    }
+                                    int randXZ = r.nextInt(xZRange);
+                                    int randY = r.nextInt(yRange);
+                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() + randXZ, p.getLocation().getY() + randY, p.getLocation().getZ() + randXZ));
+                                    break;
                                 }
+                            }
+                        } else {
+                            if (xZRangeNegOrPlus.isEmpty())
+                                if (YRangeNegOrPlus.isEmpty()) {
+                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() + xZRange, p.getLocation().getY() + yRange, p.getLocation().getZ() + xZRange));
+                                    break;
+                                } else {
+                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() + xZRange, p.getLocation().getY() - yRange, p.getLocation().getZ() + xZRange));
+                                    break;
+                                }
+
+                            else if (YRangeNegOrPlus.isEmpty()) {
+                                p.teleport(new Location(p.getWorld(), p.getLocation().getX() - xZRange, p.getLocation().getY() + yRange, p.getLocation().getZ() - xZRange));
+                                break;
                             } else {
-                                if (xZRangeNegOrPlus.isEmpty())
-                                    if (YRangeNegOrPlus.isEmpty()) {
-                                        p.teleport(new Location(p.getWorld(), p.getLocation().getX() + xZRange, p.getLocation().getY() + yRange, p.getLocation().getZ() + xZRange));
-                                        break;
-                                    } else {
-                                        p.teleport(new Location(p.getWorld(), p.getLocation().getX() + xZRange, p.getLocation().getY() - yRange, p.getLocation().getZ() + xZRange));
-                                        break;
-                                    }
-
-                                else if (YRangeNegOrPlus.isEmpty()) {
-                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() - xZRange, p.getLocation().getY() + yRange, p.getLocation().getZ() - xZRange));
-                                    break;
-                                } else {
-                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX() - xZRange, p.getLocation().getY() - yRange, p.getLocation().getZ() - xZRange));
-                                    break;
-                                }
-
+                                p.teleport(new Location(p.getWorld(), p.getLocation().getX() - xZRange, p.getLocation().getY() - yRange, p.getLocation().getZ() - xZRange));
+                                break;
                             }
 
                         }
-                    case "effect":
-                        try {
-                            if (other.equalsIgnoreCase("haste"))
-                                other = "FAST_DIGGING";
-                            else if (other.equalsIgnoreCase("strength"))
-                                other = "INCREASE_DAMAGE";
-                            else if (other.equalsIgnoreCase("resistance"))
-                                other = "DAMAGE_RESISTANCE";
-                            else if (other.equalsIgnoreCase("nausea"))
-                                other = "CONFUSION";
-                            else if (other.equalsIgnoreCase("slowness"))
-                                other = "SLOW";
-                            p.addPotionEffect((new PotionEffect(PotionEffectType.getByName(other.toUpperCase(Locale.ROOT)), duration * 20, Integer.parseInt(player))));
-                            break;
-                        } catch (Exception e) {
 
-                        }
-                    case "summon":
-                        try {
-                            if (duration == 1) {
-                                if (player.isEmpty()) {
+                    }
+                case "effect":
+                    try {
+                        if (other.equalsIgnoreCase("haste"))
+                            other = "FAST_DIGGING";
+                        else if (other.equalsIgnoreCase("strength"))
+                            other = "INCREASE_DAMAGE";
+                        else if (other.equalsIgnoreCase("resistance"))
+                            other = "DAMAGE_RESISTANCE";
+                        else if (other.equalsIgnoreCase("nausea"))
+                            other = "CONFUSION";
+                        else if (other.equalsIgnoreCase("slowness"))
+                            other = "SLOW";
+                        p.addPotionEffect((new PotionEffect(PotionEffectType.getByName(other.toUpperCase(Locale.ROOT)), duration * 20, Integer.parseInt(player))));
+                        break;
+                    } catch (Exception e) {
+
+                    }
+                case "summon":
+                    try {
+                        if (duration == 1) {
+                            if (player.isEmpty()) {
+                                p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.valueOf(other.toUpperCase(Locale.ROOT)));
+                                break;
+                            } else {
+                                summonCustom(player, other);
+                                break;
+                            }
+                        } else {
+                            if (player.isEmpty())
+                                for (int i = 0; i < duration; i++)
                                     p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.valueOf(other.toUpperCase(Locale.ROOT)));
-                                    break;
-                                } else {
+
+                            else
+                                for (int i = 0; i < duration; i++)
                                     summonCustom(player, other);
-                                    break;
+                        }
+                    } catch (Exception e) {
+                    }
+                case "sound":
+                    try {
+                        p.playSound(p.getLocation(), Sound.valueOf(other.toUpperCase(Locale.ROOT)), duration, Integer.parseInt(player));
+                    } catch (Exception e) {
+                    }
+                case "fill":
+                    fillInv(other);
+                    break;
+                case "damage":
+                    p.damage(duration);
+                    break;
+
+                case "clear":
+                    try {
+                        if (duration == 0)
+                            return;
+                        else {
+                            tempClear(duration);
+                        }
+                    } catch (Exception e) {
+                    }
+                case "msg":
+                    p.sendMessage(other);
+                case "give":
+                    try {
+                        if (Material.getMaterial(args[2].toUpperCase(Locale.ROOT)) != null) {
+                            if (player.isEmpty()) {
+                                ItemStack is = new ItemStack(Material.getMaterial(args[2].toUpperCase(Locale.ROOT)));
+                                for (int i = 0; i < duration; i++) {
+                                    p.getInventory().addItem(is);
                                 }
                             } else {
-                                if (player.isEmpty())
-                                    for (int i = 0; i < duration; i++)
-                                        p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.valueOf(other.toUpperCase(Locale.ROOT)));
-
-                                else
-                                    for (int i = 0; i < duration; i++)
-                                        summonCustom(player, other);
-                            }
-                        } catch (Exception e) {
-                        }
-                    case "sound":
-                        try {
-                            p.playSound(p.getLocation(), Sound.valueOf(other.toUpperCase(Locale.ROOT)), duration, Integer.parseInt(player));
-                        } catch (Exception e) {
-                        }
-                    case "fill":
-                        fillInv(other);
-                        break;
-                    case "damage":
-                        p.damage(duration);
-                        break;
-
-                    case "clear":
-                        try {
-                            if (duration == 0)
-                                return;
-                            else {
-                                tempClear(duration);
-                            }
-                        } catch (Exception e) {
-                        }
-                    case "msg":
-                        p.sendMessage(other);
-                    case "give":
-                        try {
-                            if (Material.getMaterial(args[2].toUpperCase(Locale.ROOT)) != null) {
-                                if (player.isEmpty()) {
-                                    ItemStack is = new ItemStack(Material.getMaterial(args[2].toUpperCase(Locale.ROOT)));
-                                    for (int i = 0; i < duration; i++) {
-                                        p.getInventory().addItem(is);
-                                    }
-                                } else {
-                                    for (int i = 0; i < duration; i++) {
-                                        p.getInventory().addItem(createItem(player, other.toUpperCase(Locale.ROOT)));
-                                    }
+                                for (int i = 0; i < duration; i++) {
+                                    p.getInventory().addItem(createItem(player, other.toUpperCase(Locale.ROOT)));
                                 }
-
                             }
-                        } catch (Exception e) {
+
                         }
-                    default:
-                        break;
-                }
+                    } catch (Exception e) {
+                    }
+                default:
+                    break;
+
             }
         }
     }
