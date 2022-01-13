@@ -178,16 +178,16 @@ class configMenuGUI:
         self.effectrarity = tk.DoubleVar()
         
         ttk.Label(self.win, text="Effect Name:", style="effects.TLabel").grid(row=0, column=0)
-        ttk.Entry(self.win, textvariable=self.effectName, style="effects.TButton").grid(row=0, column=1)
+        ttk.Entry(self.win, textvariable=self.effectName).grid(row=0, column=1)
         
         ttk.Label(self.win, text="Effect Description:", style="effects.TLabel").grid(row=1, column=0)
-        ttk.Entry(self.win, textvariable=self.effectDesc, style="effects.TButton").grid(row=1, column=1)
+        ttk.Entry(self.win, textvariable=self.effectDesc).grid(row=1, column=1)
         
         ttk.Label(self.win, text="Effect Command:", style="effects.TLabel").grid(row=2, column=0)
-        ttk.Entry(self.win, textvariable=self.effectCommand, style="effects.TButton").grid(row=2, column=1)
+        ttk.Entry(self.win, textvariable=self.effectCommand).grid(row=2, column=1)
         
         ttk.Label(self.win, text="Effect TTS:", style="effects.TLabel").grid(row=3, column=0)
-        ttk.Entry(self.win, textvariable=self.effectTts, style="effects.TButton").grid(row=3, column=1)
+        ttk.Entry(self.win, textvariable=self.effectTts).grid(row=3, column=1)
         
         ttk.Label(self.win, text="Effect Rarity:", style="effects.TLabel").grid(row=4, column=0)
         ttk.Spinbox(self.win, from_=0.0, to=1.0, increment=0.1, textvariable=self.effectrarity, style="effects.TSpinbox").grid(row=4, column=1)
@@ -297,7 +297,7 @@ class configMenuGUI:
             del out_data['key_binds']
             del out_data['css_settings']
             ## remove all disabled effects
-            out_data['effects'] = {k:v for k,v in out_data['effects'].items() if v['enabled']}
+            out_data['effects'] = [effect for effect in out_data['effects'] if out_data['effects'][effect]['enabled']]
             
             json_data = json.dumps(out_data)
             with open("config.js", 'w') as f:

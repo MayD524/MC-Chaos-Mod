@@ -8,7 +8,7 @@
         "file_name": "config.json",
         "font": "Consolas",
         "font_size": 14,
-        "runtime_port": 8889
+        "runtime_port": 8080
     },
     "css_settings": {
         "votesTextColor": "rgb(111, 210, 198)",
@@ -28,11 +28,11 @@
     },
     "effects": {
         "random_tp": {
-            "enabled": false,
-            "description": "Teleports you to a random location",
-            "command": "tp;0;player;random;-300;-50;",
+            "enabled": true,
+            "description": "Tp a play randomly",
+            "command": "tp;0;player;player;doRandom;100;50",
             "tts": "",
-            "rarity": 0.04
+            "rarity": 0.6
         },
         "Lets Fly": {
             "enabled": true,
@@ -47,6 +47,90 @@
             "command": "give:128:STONE",
             "tts": "Bro I'm soooooo stoned",
             "rarity": 0.6
+        },
+        "Bye Bye": {
+            "enabled": true,
+            "description": "Clears player items for x seconds",
+            "command": "clear;5",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Diamonds!!": {
+            "enabled": true,
+            "description": "Gives the player diamonds",
+            "command": "give;10;diamonds",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Spooky": {
+            "enabled": true,
+            "description": "Plays a spooky sound lol",
+            "command": "sound;100;AMBIENT_CAVE;8",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Onk": {
+            "enabled": true,
+            "description": ".... do you really need this?",
+            "command": "summon;20;pig;onk",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Sweden": {
+            "enabled": true,
+            "description": "It summons sweden",
+            "command": "summon;1;villager;Sweden (It may work)",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Tp To Heaven": {
+            "enabled": true,
+            "description": "weeeeee...",
+            "command": "tp;0;player;player;false;1;100",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "I am speed": {
+            "enabled": true,
+            "description": "Gives a nice amount of speed",
+            "command": "effect;100;speed;20",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Jumping boots": {
+            "enabled": true,
+            "description": "Jump reallyyyy high",
+            "command": "effect;10;jump;10",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "I like pork": {
+            "enabled": true,
+            "description": "Gives the player some food :>",
+            "command": "give;256;porkchop; I like pork :)",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Mom im sick": {
+            "enabled": true,
+            "description": "Makes the player sooo sick dude",
+            "command": "effect;15;nausea;15",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Kill Them": {
+            "enabled": true,
+            "description": "Kills the player",
+            "command": "damage;100",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "That hurt ": {
+            "enabled": true,
+            "description": "Damages the player",
+            "command": "damage;6",
+            "tts": "",
+            "rarity": 0.0
         }
     },
     "meta": {
@@ -57,6 +141,6 @@
         "mod_enabled": true,
         "twitch_enabled": true,
         "random_effects": true,
-        "twitch_token": ""
+        "twitch_token": "MayActual"
     }
 }

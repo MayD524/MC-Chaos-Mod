@@ -8,10 +8,9 @@ var i = 0;
 
 var randomProperty = function (obj) {
     // check if object is an array
-    if (Array.isArray(obj)) { return obj[Math.floor(Math.random() * obj.length)]; }
-    var keys = Object.keys(obj);
-    var k =  keys[keys.length * Math.random() << 0];
+    let k = obj[Math.floor(Math.random() * obj.length)]; 
     if (k in possible_opts) {
+        if (obj.length < 4) { return k;}
         return randomProperty(obj);
     }
     return k;
@@ -28,15 +27,8 @@ var writeFile = function(fname, data) {
 };
 
 var _send_vote = function (vote) {
-
-    if (typeof vote !== 'object') {
-        throw new Error("vote must be an object");
-    }
-
     console.log("sending vote: ", vote);
-
     var xhr = new XMLHttpRequest();
-    vote = JSON.stringify(vote)
     xhr.open("POST", "http://localhost:" + config_data['general_config']['runtime_port']);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(vote);
@@ -49,11 +41,7 @@ var optionWin = function (arr) {
     document.getElementById('winner').innerHTML = "The winner is: " + win_key;
     document.getElementsByClassName("win_popUp")[0].classList.add("active");
     // send the win to the server
-    data = {
-        "effect_name": win_key,
-        "effect_details": config_data['effects'][win_key]
-    }
-    //_send_vote(data);
+    _send_vote(win_key);
     // wait 2 seconds
     setTimeout(function () {
         document.getElementsByClassName("win_popUp")[0].classList.remove("active");
@@ -82,15 +70,12 @@ function run_progbar() {
                 clearInterval(id);
                 i = 0;
                 active_round = false;
+                $("#total_votes").text("Waiting for new round...");
                 if (total_votes == 0) {
                     let win = randomProperty(config_data['effects']);
                     document.getElementById('winner').innerHTML = "The winner is: " + win;
                     document.getElementsByClassName("win_popUp")[0].classList.add("active");
-                    data = {
-                        "effect_name" : win,
-                        "effect_details" : config_data['effects'][data]
-                    };
-                        //_send_vote(data);
+                    _send_vote(win);
                     setTimeout(function () {
                         document.getElementsByClassName("win_popUp")[0].classList.remove("active");
                     }, 2000);
@@ -99,6 +84,7 @@ function run_progbar() {
                 optionWin(scores);
                
             } else {
+                if (total_votes == 0) { $("#total_votes").text("Waiting for votes..."); }
                 width += 100 / (config_data['meta']['default_duration'] * 100);
                 elem.style.width = width + '%';
             }
