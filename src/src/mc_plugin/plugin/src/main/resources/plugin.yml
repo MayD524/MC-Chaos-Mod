@@ -1,0 +1,4 @@
+name: Chaos_plugin
+version: '${project.version}'
+main: me.may.chaos_plugin.Chaos_plugin
+api-version: 1.15

@@ -1,0 +1,8 @@
+sound;vol;AMBIENT_CAVE;pitch
+effect;dur;regeneration;strength
+give;amount;item || give;amount;item;custom_name
+summon;amount;type || summon;amount;type;custom_name
+tp;0;player;player;doRandom;<x,z>;y
+damage;count
+clear;time
+fill;0;item
