@@ -1,8 +1,36 @@
+*To chain commands use |
+
 sound;vol;AMBIENT_CAVE;pitch
+
 effect;dur;regeneration;strength
-give;amount;item || give;amount;item;custom_name
-summon;amount;type || summon;amount;type;custom_name
-tp;0;player;player;doRandom;<x,z>;y
+effect;dur;name;strength
+effect;1;doRandom
+
+give;amount;item
+give;amount;item;lore, enchant
+give;amount;item;custom_name
+give;1;doRandom
+give;head;<name>
+
+summon;amount;type
+summon;amount;type;custom_name
+summon;amount;tnt
+summon;amount;puppy
+summon;1;doRandom
+
+enchant;level;name
+enchant;1;doRandom
+
+smite;[0-1] (0 with harming, 1 without)
+time;0;[day-night-noon-midnight-sun]
+weather;duration;[rain-thunder-rain_thunder-clear]
+tp;0;player;player;<true/false>;<x,z>;y
+delay;<seconds>
 damage;count
 clear;time
 fill;0;item
+armor;item
+fire;0
+santa;0
+msg;message
+armor;[0-4] or [5 (for all)];item

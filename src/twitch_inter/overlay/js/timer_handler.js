@@ -1,18 +1,15 @@
-var data = {};
+var data          = {};
+var active_round  = true;
+var prev_round    = []
 var possible_opts = [];
-var has_voted = [];
-var scores = [0,0,0,0];
-var active_round = true;
-var total_votes  = 0;
-var i = 0;
+var has_voted     = [];
+var scores        = [0,0,0,0];
+var total_votes   = 0;
+var i             = 0;
 
 var randomProperty = function (obj) {
     // check if object is an array
     let k = obj[Math.floor(Math.random() * obj.length)]; 
-    if (k in possible_opts) {
-        if (obj.length < 4) { return k;}
-        return randomProperty(obj);
-    }
     return k;
 };
 
@@ -29,11 +26,11 @@ var writeFile = function(fname, data) {
 var _send_vote = function (vote) {
     console.log("sending vote: ", vote);
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:" + config_data['general_config']['runtime_port']);
+    xhr.open("POST", "http://may.pagekite.me");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(vote);
     console.log(vote);
-}
+};
 
 var optionWin = function (arr) {
     var win_index = arr.indexOf(Math.max(...arr));
@@ -49,11 +46,12 @@ var optionWin = function (arr) {
 };
 
 function run_progbar() {
-         if (i == 0) {
+    if (i == 0) {
         // reset the votes
         active_round = true;
-        total_votes = 0;
-        scores = [0, 0, 0, 0];
+        has_voted    = [];
+        total_votes  = 0;
+        scores       = [0, 0, 0, 0];
 
         i = 1;
         var elem = document.getElementById("bar");
@@ -69,10 +67,9 @@ function run_progbar() {
                 elem.style.width = width + '%';
                 clearInterval(id);
                 i = 0;
-                active_round = false;
                 $("#total_votes").text("Waiting for new round...");
-                if (total_votes == 0) {
-                    let win = randomProperty(config_data['effects']);
+                if (total_votes == 0 && active_round) {
+                    let win = randomProperty(possible_opts);
                     document.getElementById('winner').innerHTML = "The winner is: " + win;
                     document.getElementsByClassName("win_popUp")[0].classList.add("active");
                     _send_vote(win);
@@ -82,7 +79,7 @@ function run_progbar() {
                     return;
                 }
                 optionWin(scores);
-               
+                active_round = false;
             } else {
                 if (total_votes == 0) { $("#total_votes").text("Waiting for votes..."); }
                 width += 100 / (config_data['meta']['default_duration'] * 100);

@@ -64,7 +64,7 @@
 #option_display {
     position: absolute;
     right: 0px;
-    width: 300px;
+    width: 500px;
     border: 3px solid green;
     border-radius: 0px 0px 10px 10px;
     padding: 10px;
@@ -76,6 +76,8 @@
 
     /* make the object larger */
     font-size: 2em;
+
+    /**/
 
 }
 

@@ -30,105 +30,182 @@
         "random_tp": {
             "enabled": true,
             "description": "Tp a play randomly",
-            "command": "tp;0;player;player;doRandom;100;50",
+            "command": "tp;0;player;player;true;100;50|msg;lets see if somewhere else looks good",
             "tts": "",
             "rarity": 0.6
         },
         "Lets Fly": {
             "enabled": true,
             "description": "You fly....",
-            "command": "effect;10;levitation;10",
+            "command": "effect;5;levitation;10|msg;I'm an air plane",
             "tts": "I wanna fly mom",
             "rarity": 0.3
         },
         "Stoned": {
             "enabled": true,
             "description": "Gives you a lot of stone",
-            "command": "give:128:STONE",
+            "command": "give;128;STONE|msg;Broooo I'm sooooo stoned",
             "tts": "Bro I'm soooooo stoned",
             "rarity": 0.6
         },
         "Bye Bye": {
             "enabled": true,
             "description": "Clears player items for x seconds",
-            "command": "clear;5",
+            "command": "clear;5|msg;Bye bye items",
             "tts": "",
             "rarity": 0.0
         },
         "Diamonds!!": {
             "enabled": true,
             "description": "Gives the player diamonds",
-            "command": "give;10;diamonds",
+            "command": "give;10;diamond|msg;Here's some diamonds",
             "tts": "",
             "rarity": 0.0
         },
         "Spooky": {
             "enabled": true,
             "description": "Plays a spooky sound lol",
-            "command": "sound;100;AMBIENT_CAVE;8",
+            "command": "sound;100;AMBIENT_CAVE;8|msg;Spooky noises",
             "tts": "",
             "rarity": 0.0
         },
         "Onk": {
             "enabled": true,
             "description": ".... do you really need this?",
-            "command": "summon;20;pig;onk",
+            "command": "summon;20;pig;onk|msg;onk",
             "tts": "",
             "rarity": 0.0
         },
         "Sweden": {
             "enabled": true,
             "description": "It summons sweden",
-            "command": "summon;1;villager;Sweden (It may work)",
+            "command": "summon;1;villager;Sweden (It may work)|msg;Sweden has arrived",
             "tts": "",
             "rarity": 0.0
         },
         "Tp To Heaven": {
             "enabled": true,
             "description": "weeeeee...",
-            "command": "tp;0;player;player;false;1;100",
+            "command": "tp;0;player;player;false;1;100|msg;God is calling",
             "tts": "",
             "rarity": 0.0
         },
         "I am speed": {
             "enabled": true,
             "description": "Gives a nice amount of speed",
-            "command": "effect;100;speed;20",
+            "command": "effect;100;speed;20|msg;I am speed!!",
             "tts": "",
             "rarity": 0.0
         },
         "Jumping boots": {
             "enabled": true,
             "description": "Jump reallyyyy high",
-            "command": "effect;10;jump;10",
+            "command": "effect;10;jump;10|msg;Bouncy balls",
             "tts": "",
             "rarity": 0.0
         },
         "I like pork": {
             "enabled": true,
             "description": "Gives the player some food :>",
-            "command": "give;256;porkchop; I like pork :)",
+            "command": "give;256;porkchop; I like pork :)|msg;I like pork :)",
             "tts": "",
             "rarity": 0.0
         },
         "Mom im sick": {
             "enabled": true,
             "description": "Makes the player sooo sick dude",
-            "command": "effect;15;nausea;15",
+            "command": "effect;15;nausea;15|msg;I may throw up....",
             "tts": "",
             "rarity": 0.0
         },
         "Kill Them": {
             "enabled": true,
             "description": "Kills the player",
-            "command": "damage;100",
+            "command": "damage;100|msg;Good bye",
             "tts": "",
             "rarity": 0.0
         },
         "That hurt ": {
             "enabled": true,
             "description": "Damages the player",
-            "command": "damage;6",
+            "command": "damage;6|msg;Ow",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Angels Grace": {
+            "enabled": true,
+            "description": "Heals the player",
+            "command": "effect;10;heal;100|effect;10;strength;10|effect;10;health_boost;10|msg;Your Angel has found you",
+            "tts": "Insert holy noises",
+            "rarity": 0.0
+        },
+        "Stur crazy ": {
+            "enabled": true,
+            "description": "TPs the player really far away",
+            "command": "tp;0;player;player;true;500;50|mgs;I hope you didn't like your base too much.",
+            "tts": "I hope you didn't like that base lol",
+            "rarity": 0.0
+        },
+        "Big Man": {
+            "enabled": true,
+            "description": "Big Man",
+            "command": "summon;1;turtle;Big Man|msg;No need to fear, big man is here!",
+            "tts": "Big MAN!!!",
+            "rarity": 0.0
+        },
+        "Wear pork? :o": {
+            "enabled": true,
+            "description": "... do i have to explain?",
+            "command": "armor;cooked_porkchop|msg;\"I'M WEARING PORKCHOP!\"",
+            "tts": "I'M WEARING PORKCHOP!",
+            "rarity": 0.0
+        },
+        "Sneeze": {
+            "enabled": true,
+            "description": "The player tps randomly",
+            "command": "tp;0;player;player;true;10;1|tp;0;player;player;true;10;1|tp;0;player;player;true;10;1|msg;Sorry, I sneezed.",
+            "tts": "achooooo I sneezed ",
+            "rarity": 0.0
+        },
+        "Enable Dream": {
+            "enabled": true,
+            "description": "",
+            "command": "effect;900;luck;5|msg;Dream speedrun engaged",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Popbob is Pleased": {
+            "enabled": true,
+            "description": "",
+            "command": "give;64;enchanted_golden_apple;Gapples|give;1;totem_of_undying|msg;Oh my god, Popbob bless you!",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Popbob is Angry": {
+            "enabled": true,
+            "description": "",
+            "command": "summon;3;TnTPrimed|msg;YOU MESSED UP NOW, PREPARE TO FEEL HIS WRATH",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Hypixel Skyblocks Starter Kit": {
+            "enabled": true,
+            "description": "",
+            "command": "give;1;leather_helmet;Lapis Helmet|give;1;leather_chestplate;Lapis Chestplate|give;1;leather_leggings;Lapis Leggings|give;1;leather_boots;Lapis Boots|give;1;iron_sword;Undead Sword",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "Hot Potato": {
+            "enabled": true,
+            "description": "",
+            "command": "enchant;5;FIRE_ASPECT",
+            "tts": "",
+            "rarity": 0.0
+        },
+        "UnBreakable": {
+            "enabled": true,
+            "description": "",
+            "command": "enchant;10;DURABILITY",
             "tts": "",
             "rarity": 0.0
         }
@@ -137,10 +214,10 @@
         "default_duration": 10,
         "grace_period_s": 5,
         "enabled_voting": true,
-        "enabled_tts": true,
+        "enabled_tts": false,
         "mod_enabled": true,
         "twitch_enabled": true,
         "random_effects": true,
-        "twitch_token": "MayActual"
+        "twitch_token": "ABadReference"
     }
 }

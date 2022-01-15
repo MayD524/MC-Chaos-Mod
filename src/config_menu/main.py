@@ -171,11 +171,11 @@ class configMenuGUI:
         self.win.title("Create Effect")
         self.win.geometry("400x200")
         
-        self.effectName = tk.StringVar()
-        self.effectDesc = tk.StringVar()
-        self.effectCommand = tk.StringVar()
-        self.effectTts = tk.StringVar()
-        self.effectrarity = tk.DoubleVar()
+        self.effectName      = tk.StringVar()
+        self.effectDesc      = tk.StringVar()
+        self.effectCommand   = tk.StringVar()
+        self.effectTts       = tk.StringVar()
+        self.effectrarity    = tk.DoubleVar()
         
         ttk.Label(self.win, text="Effect Name:", style="effects.TLabel").grid(row=0, column=0)
         ttk.Entry(self.win, textvariable=self.effectName).grid(row=0, column=1)
@@ -297,7 +297,8 @@ class configMenuGUI:
             del out_data['key_binds']
             del out_data['css_settings']
             ## remove all disabled effects
-            out_data['effects'] = [effect for effect in out_data['effects'] if out_data['effects'][effect]['enabled']]
+            ## set the value to the rarity of the effect
+            out_data["effects"] = {k:v['rarity'] for k,v in out_data["effects"].items() if v['enabled']}
             
             json_data = json.dumps(out_data)
             with open("config.js", 'w') as f:

@@ -1,27 +1,43 @@
 
 var roundsOptions = function(obj) {
-    var options = [];
+    // get a list of all the keys
+    let keys    = Object.keys(obj);
+    let options = [];
+
     for (var i = 0; i < 4; i++) {
-        options.push(randomProperty(obj));
+        let opt = randomProperty(keys);
+        // check if the option is already in the array
+        if (options.indexOf(opt) == -1 && prev_round.indexOf(opt) == -1) {
+            // get a random number between 0 and 1 and check if its less than the chance
+            if (Math.random() < obj[opt]) {
+                options.push(opt);
+            } else {
+                i--;
+            }
+        } else {
+            i--;
+        }
     }
+    console.log(options);
     return options;
 }
 
 function placeObjects(options) {
     // get the container
-    var container = document.getElementById("option_display");
+    let container = document.getElementById("option_display");
     // clear the container
     container.innerHTML = "";
 
     // create a new div for each object
     for (var i = 0; i < options.length; i++) {
-        var newDiv = document.createElement("div");
+        let name = options[i];
+        if (name.length > 25) name = name.substring(0, 25) + "...";
+        let newDiv = document.createElement("div");
         newDiv.className = "option";
         newDiv.id = "option" + i;
-        newDiv.innerHTML = options[i];
+        newDiv.innerHTML = i+1 + ") " + name;
         document.getElementById("option_display").appendChild(newDiv);
     }
-
 }
 
 function start_timer() {
@@ -32,6 +48,10 @@ function start_timer() {
     if (config_data["meta"]["enabled_voting"] && 
         config_data["meta"]["mod_enabled"] &&
         config_data["meta"]["twitch_enabled"]) {
+        
+        // set the prev_round to the current round
+        if (possible_opts.length != 0) prev_round = possible_opts;
+
         possible_opts = roundsOptions(config_data['effects']);
         placeObjects(possible_opts);
         run_progbar();
