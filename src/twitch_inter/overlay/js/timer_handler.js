@@ -26,7 +26,7 @@ var writeFile = function(fname, data) {
 var _send_vote = function (vote) {
     console.log("sending vote: ", vote);
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://may.pagekite.me");
+    xhr.open("POST", "http://localhost:8080");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(vote);
     console.log(vote);

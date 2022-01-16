@@ -32,17 +32,17 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.units.qual.C;
 
-import java.io.*;
+import java.util.concurrent.TimeUnit;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.io.*;
 
 public final class Main extends JavaPlugin implements Listener {
-    FileConfiguration config = getConfig();
-    static String playerName = "";
+    FileConfiguration config         = getConfig();
+    static String playerName         = "";
     static ArrayList<Player> players = new ArrayList<>();
-    private static String GET_URL = "http://localhost:8080";
+    private static String GET_URL    = "http://localhost:8080";
 
     @Override
     public void onEnable() {
@@ -79,11 +79,11 @@ public final class Main extends JavaPlugin implements Listener {
             int responseCode = httpURLConnection.getResponseCode();
             System.out.println("GET Response Code :: " + responseCode);
 
-            if (responseCode == 400) {
-                java.util.concurrent.TimeUnit.SECONDS.sleep(5);
-            } else if (responseCode == 404) {
-                java.util.concurrent.TimeUnit.SECONDS.sleep(20);
-            }
+            //if (responseCode == 400) {
+            //    TimeUnit.SECONDS.sleep(5);
+            //} else if (responseCode == 404) {
+            //    TimeUnit.SECONDS.sleep(20);
+            //}
 
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
                 BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
@@ -93,7 +93,13 @@ public final class Main extends JavaPlugin implements Listener {
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
-                task(response.toString().split("|"));
+                
+                System.out.println(response.toString());
+                if (response.toString().contains("|")) {
+                    task(response.toString().split("\\|"));
+                } else {
+                    task(new String[]{response.toString()});
+                }
                 in.close();
                 // print result
                 System.out.println(response.toString());
@@ -109,6 +115,7 @@ public final class Main extends JavaPlugin implements Listener {
 
     //Player p = Bukkit.getPlayer(playerName);
     void task(String[] http_args) {
+        
         for (String arg : http_args)
         {
             String[] args = arg.split(";");
@@ -118,7 +125,13 @@ public final class Main extends JavaPlugin implements Listener {
             if (args[0].equalsIgnoreCase("delay")) {
                 int delayFor = Integer.parseInt(args[1]);
                 // wait for delay seconds
-                delay(delayFor);
+                // TODO: Maybe make this work lol
+                try {
+                    TimeUnit.SECONDS.sleep(delayFor);
+                } catch (InterruptedException e) {}
+                System.out.println("Waiting for " + delayFor + " seconds");
+                
+                System.out.println("Done waiting");
                 continue;
             } 
 
@@ -371,6 +384,7 @@ public final class Main extends JavaPlugin implements Listener {
                         break;
 
                     case "summon":
+                        // summon;amount;name;customName
                         switch (other) {
                             case "doRandom":
                                 Random r = new Random();
@@ -605,15 +619,6 @@ public final class Main extends JavaPlugin implements Listener {
         return;
     }
 
-    void delay(int duration) {
-        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
-            @Override
-            public void run() {
-                // do something
-            }
-        }, 20 * duration); // duration in seconds * 20 (ticks per second)
-    }
-
     static void summonTNT(Player p) {
         // summon a TNT entity
         p.getWorld().spawnEntity(p.getLocation(), EntityType.PRIMED_TNT);
@@ -642,7 +647,7 @@ public final class Main extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent e ){
         players.add(e.getPlayer());
         e.getPlayer().sendMessage("Welcome to hell! This is the Chaos Twitch Minecraft Plugin by the Devs at Char(69) Dev Team :). We hope you enjoy this :>");
-        e.getPlayer().sendMessage("*Note this is in early access so please be patient things may not work correctly (version: 1.0b3)");
+        e.getPlayer().sendMessage("*Note this is in early access so please be patient things may not work correctly (version: 1.0b4)");
     }
 
     @EventHandler
