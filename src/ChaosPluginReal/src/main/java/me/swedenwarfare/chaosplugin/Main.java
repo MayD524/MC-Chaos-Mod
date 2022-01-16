@@ -166,7 +166,6 @@ public final class Main extends JavaPlugin implements Listener {
                     duration = Integer.parseInt(args[2]);
                     xZRange = Integer.parseInt(args[3]);
                     yRange = Integer.parseInt(args[4]);
-                    // place;BLOCK;x;y;z
                 } else if (args.length > 6) {
                     cmd = args[0];
                     System.out.println("Cmd " + cmd);
@@ -463,6 +462,7 @@ public final class Main extends JavaPlugin implements Listener {
                         }
 
                     case "msg":
+
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&',other));
                         break;
 
@@ -498,7 +498,7 @@ public final class Main extends JavaPlugin implements Listener {
                         }
 
                     case "place":
-                        // place;0;BLOCK;x;y;z
+                        // place;BLOCK;x;y;z
                         placeBlock(p,duration,xZRange,yRange,Material.getMaterial(other.toUpperCase(Locale.ROOT)));
                         break;
 
@@ -534,7 +534,18 @@ public final class Main extends JavaPlugin implements Listener {
                         p.setVisualFire(true);
                         break;
                     case "trade":
-                        p.getInventory().addItem(tradeOffer(p));
+                        //trade;0
+                        Random r = new Random();
+                        int itemTrade = r.nextInt(p.getInventory().getSize());
+                        ItemStack item = tradeOffer(p,itemTrade);
+                        while(p.getInventory().getItem(itemTrade).getType() == Material.AIR)
+                            itemTrade = r.nextInt(p.getInventory().getSize());
+                        //Maybe this one
+                        while (item.getType() == Material.AIR)
+                            item = tradeOffer(p,itemTrade);
+                        p.sendMessage(item.getType().toString());
+                        p.getInventory().getItem(itemTrade).setAmount(p.getInventory().getItem(itemTrade).getAmount()-p.getInventory().getItem(itemTrade).getAmount());
+                        p.getInventory().addItem(item);
                         break;
                     default:
                         break;
@@ -544,16 +555,13 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    ItemStack tradeOffer(Player p){
+    ItemStack tradeOffer(Player p, int slot){
         Random r = new Random();
         int totalItems = Material.values().length;
         int item = r.nextInt(totalItems);
         int amount = r.nextInt(64);
         Material mat = Material.values()[item];
-        int itemTrade = r.nextInt(p.getInventory().getSize());
-        if(p.getInventory().getItem(itemTrade).getType() == Material.AIR || mat == Material.AIR)
-            tradeOffer(p);
-        p.getInventory().getItem(itemTrade).setAmount(p.getInventory().getItem(itemTrade).getAmount()-p.getInventory().getItem(itemTrade).getAmount());
+
         return new ItemStack(mat,amount);
     }
     void fillInv(Player p, String itemName){
