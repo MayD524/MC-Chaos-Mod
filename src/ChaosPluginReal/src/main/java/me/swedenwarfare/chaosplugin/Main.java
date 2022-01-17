@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,9 +25,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.checkerframework.checker.units.qual.C;
-
 import java.util.concurrent.TimeUnit;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -38,7 +36,7 @@ public final class Main extends JavaPlugin implements Listener {
     static String playerName         = "";
     static ArrayList<Player> players = new ArrayList<>();
     private static String GET_URL    = "http://localhost:8080";
-
+    static boolean allowMove = false;
     @Override
     public void onEnable() {
         config.addDefault("delay",10);
@@ -328,7 +326,7 @@ public final class Main extends JavaPlugin implements Listener {
                             int randEnchant = r.nextInt(totalEnchants);
                             Enchantment ench = Enchantment.values()[randEnchant];
                             int level = r.nextInt(100);
-                            p.getItemInUse().addUnsafeEnchantment(ench, level);
+                            p.getItemInHand().addUnsafeEnchantment(ench, level);
                             break;
                         }
 
@@ -358,7 +356,7 @@ public final class Main extends JavaPlugin implements Listener {
                                 other = "ARROW_FIRE";
                                 break;
                         }
-                        p.getItemInUse().addUnsafeEnchantment(Enchantment.getByName(other.toUpperCase(Locale.ROOT)), duration);
+                        p.getItemInHand().addUnsafeEnchantment(Enchantment.getByName(other.toUpperCase(Locale.ROOT)), duration);
                         break;
 
                     case "effect":
@@ -536,8 +534,40 @@ public final class Main extends JavaPlugin implements Listener {
                     case "closet":
 
                         break;
+                    case "shuffle":
+                        Random r1 = new Random();
+
+                        int slot1 = 0;
+                        int slot2 = 0;
+
+                        for(int i = 0; i < p.getInventory().getSize(); i++ ){
+                            slot1 = r1.nextInt(p.getInventory().getSize());
+                            slot2 = r1.nextInt(p.getInventory().getSize());
+                            ItemStack item = p.getInventory().getItem(slot1);
+                            ItemStack item2 = p.getInventory().getItem(slot2);
+
+
+                            p.sendMessage("Slot1"+p.getInventory().getItem(slot1));
+                            p.sendMessage("Slot2"+p.getInventory().getItem(slot2));
+
+                            p.getInventory().setItem(slot1,item2);
+                            p.getInventory().setItem(slot2,item);
+                        }
+
+                        break;
+
+                    case "denymove":
+                        allowMove = true;
+                        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+                            @Override
+                            public void run() {
+                                allowMove = false;
+                            }
+                        }, 20*duration);
+                        break;
                     case "fire":
                         p.setVisualFire(true);
+
                         break;
                     case "trade":
                         //trade;0
@@ -675,7 +705,11 @@ public final class Main extends JavaPlugin implements Listener {
     public void onDeath(PlayerDeathEvent e){
         e.getEntity().setVisualFire(false);
     }
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e ){
+        e.setCancelled(allowMove);
 
+    }
     @EventHandler
     public void onJoin(PlayerJoinEvent e ){
         players.add(e.getPlayer());
