@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "EHbI0bONp/6AZ5s+VicOEEV8EWl5iYJg6BRWMF6FskGy/kDu9HAnlGtPbB7rciucrprjXruOndHG9UNSJL1H+g==",
+  "success": true,
+  "projectFilePath": "D:\\github\\MC-Chaos-Mod\\src\\twitch_inter\\local_mod\\local_mod.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Cross\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Cross\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
+    "C:\\Users\\Cross\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "C:\\Users\\Cross\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "C:\\Users\\Cross\\.nuget\\packages\\system.speech\\6.0.0\\system.speech.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

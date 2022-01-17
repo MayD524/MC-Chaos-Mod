@@ -21,17 +21,6 @@ except ImportError:
     os.system(f"{sys.executable} -m pip install pyautogui")
     import pyautogui"""
 
-try:
-    import pyttsx3 ## for tts
-except ImportError:
-    os.system(f"{sys.executable} -m pip install pyttsx3")
-    if os.name == 'nt':
-        os.system(f"{sys.executable} -m pip install pywin32")
-    import pyttsx3
-
-def run_tts(text:str) -> None:
-    TTS_ENGINE.say(text)
-    TTS_ENGINE.runAndWait()
 
 class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
     pass
@@ -90,9 +79,7 @@ if __name__ == '__main__':
         raise FileNotFoundError("config.json not found!")
     with open("config.json", "r") as f:
         config = json.load(f)
-    
-    TTS_ENGINE = pyttsx3.init()
-    
+        
     current_requests:list[str] = []
         #"give;1;diamond",
         #"msg;test message",
