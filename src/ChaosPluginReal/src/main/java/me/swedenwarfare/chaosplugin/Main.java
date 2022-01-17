@@ -31,6 +31,7 @@ import java.net.URL;
 import java.util.*;
 import java.io.*;
 
+
 public final class Main extends JavaPlugin implements Listener {
     FileConfiguration config         = getConfig();
     static String playerName         = "";
@@ -107,6 +108,25 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     //Player p = Bukkit.getPlayer(playerName);
+
+
+    static ItemStack tradeOffer(Player p, int slot){
+        Random r = new Random();
+        int totalItems = Material.values().length;
+        int item = r.nextInt(totalItems);
+        int amount = r.nextInt(64);
+        Material mat = Material.values()[item];
+
+        return new ItemStack(mat,amount);
+    }
+    static void fillInv(Player p, String itemName){
+        // removed the for loop here (we get the player earlier)
+        for (int i = 0; i < p.getInventory().getSize(); i++) {
+            for (int x = 0; x < 64; x++)
+                p.getInventory().addItem(new ItemStack(Material.getMaterial(itemName.toUpperCase(Locale.ROOT))));
+        }
+
+    }
     void task(String[] http_args) {
 
         for (String arg : http_args)
@@ -129,7 +149,6 @@ public final class Main extends JavaPlugin implements Listener {
             }
 
             for(Player p : Bukkit.getOnlinePlayers()) {
-                boolean doRandom        = false;
                 String xZRangeNegOrPlus = "";
                 String YRangeNegOrPlus  = "";
                 String player           = "";
@@ -139,6 +158,7 @@ public final class Main extends JavaPlugin implements Listener {
                 int duration            = 0;
                 int xZRange             = 0;
                 int yRange              = 0;
+                boolean doRandom        = false;
 
                 if (args.length < 3) {
                     cmd = args[0];
@@ -150,50 +170,45 @@ public final class Main extends JavaPlugin implements Listener {
                     }
 
                 } else if (args.length < 4) {
-                    cmd      = args[0];
+                    cmd = args[0];
                     duration = Integer.parseInt(args[1]);
-                    other    = args[2];
-
+                    other = args[2];
                 } else if (args.length > 3 && args.length < 5) {
-                    cmd      = args[0];
+                    cmd = args[0];
                     duration = Integer.parseInt(args[1]);
-                    other    = args[2];
-                    player   = args[3];
-
+                    other = args[2];
+                    player = args[3];
                 } else if (args.length > 4 && args.length < 6) {
-                    cmd      = args[0];
-                    other    = args[1];
+                    cmd = args[0];
+                    other = args[1];
                     duration = Integer.parseInt(args[2]);
-                    xZRange  = Integer.parseInt(args[3]);
-                    yRange   = Integer.parseInt(args[4]);
-
+                    xZRange = Integer.parseInt(args[3]);
+                    yRange = Integer.parseInt(args[4]);
                 } else if (args.length > 6) {
-                    cmd      = args[0];
+                    cmd = args[0];
                     System.out.println("Cmd " + cmd);
                     duration = Integer.parseInt(args[1]);
                     System.out.println("Duration " + duration);
-                    other    = args[2];
+                    other = args[2];
                     System.out.println("Other" + other);
-                    dest     = args[3];
+                    dest = args[3];
                     System.out.println("Dest " + dest);
                     doRandom = Boolean.valueOf(args[4]);
                     System.out.println("doRandom " + doRandom);
-
                     if (args[5].startsWith("-")) {
-                        String[] temp    = args[5].split("-");
+                        String[] temp = args[5].split("-");
                         System.out.println(temp[0]);
                         xZRangeNegOrPlus = "-";
-                        xZRange          = Integer.parseInt(temp[1]);
+                        xZRange = Integer.parseInt(temp[1]);
                     } else {
-                        xZRange          = Integer.parseInt(args[5]);
+                        xZRange = Integer.parseInt(args[5]);
                     }
-
                     if (args[6].startsWith("-")) {
-                        String[] temp    = args[6].split("-");
-                        YRangeNegOrPlus  = "-";
-                        yRange           = Integer.parseInt(temp[1]);
+                        String[] temp = args[6].split("-");
+                        YRangeNegOrPlus = "-";
+                        yRange = Integer.parseInt(temp[1]);
                     } else {
-                        yRange           = Integer.parseInt(args[6]);
+                        yRange = Integer.parseInt(args[6]);
                     }
                 }
 
@@ -281,12 +296,11 @@ public final class Main extends JavaPlugin implements Listener {
                                 p.getWorld().setThundering(false);
                                 break;
                         }
-                        // update in ticks
-                        p.getWorld().setWeatherDuration(duration * 20);
+                        p.getWorld().setWeatherDuration(duration);
                         break;
 
                     case "time":
-                        // time;type
+                        // time;0;type
                         switch (other) {
                             case "day":
                                 p.getWorld().setTime(0);
@@ -401,16 +415,16 @@ public final class Main extends JavaPlugin implements Listener {
 
                             case "tnt":
                                 for (int i = 0; i < duration; i++) {
-                                    summonTNT(p);
+                                    Main.summonTNT(p);
                                 }
                                 break;
 
                             case "puppy":
                                 for (int i = 0; i < duration; i++) {
                                     if (player.isEmpty())
-                                        tamedWolf(p, null);
+                                        Main.tamedWolf(p, null);
                                     else
-                                        tamedWolf(p, player);
+                                        Main.tamedWolf(p, player);
                                 }
                                 break;
 
@@ -420,7 +434,7 @@ public final class Main extends JavaPlugin implements Listener {
                                         p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.valueOf(other.toUpperCase(Locale.ROOT)));
                                         break;
                                     } else {
-                                        summonCustom(p, player, other);
+                                        Main.summonCustom(p, player, other);
                                         break;
                                     }
                                 } else {
@@ -430,7 +444,7 @@ public final class Main extends JavaPlugin implements Listener {
                                         break;
                                     } else {
                                         for (int i = 0; i < duration; i++)
-                                            summonCustom(p, player, other);
+                                            Main.summonCustom(p, player, other);
                                         break;
                                     }
                                 }
@@ -450,7 +464,7 @@ public final class Main extends JavaPlugin implements Listener {
                         break;
 
                     case "fill":
-                        fillInv(p, other);
+                        Main.fillInv(p, other);
                         break;
 
                     case "damage":
@@ -482,7 +496,7 @@ public final class Main extends JavaPlugin implements Listener {
                             break;
                         }
                         if (other.equalsIgnoreCase("head")) {
-                            giveHead(p, player);
+                            Main.giveHead(p, player);
                             break;
                         }
 
@@ -495,7 +509,7 @@ public final class Main extends JavaPlugin implements Listener {
                                 break;
                             } else {
                                 for (int i = 0; i < duration; i++) {
-                                    p.getInventory().addItem(createItem(player, other.toUpperCase(Locale.ROOT)));
+                                    p.getInventory().addItem(Main.createItem(player, other.toUpperCase(Locale.ROOT)));
                                 }
                                 break;
                             }
@@ -557,11 +571,11 @@ public final class Main extends JavaPlugin implements Listener {
                         break;
 
                     case "denymove":
-                        allowMove = true;
+                        Main.allowMove = true;
                         Bukkit.getScheduler().runTaskLater(this, new Runnable() {
                             @Override
                             public void run() {
-                                allowMove = false;
+                                Main.allowMove = false;
                             }
                         }, 20*duration);
                         break;
@@ -569,16 +583,30 @@ public final class Main extends JavaPlugin implements Listener {
                         p.setVisualFire(true);
 
                         break;
+                    case "hole":
+                        for (int i = 0; i < duration; i++) {
+                            p.getLocation().subtract(0.0D, i, 0.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(1.0D, i, 0.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(0.0D, i, 1.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(-1.0D, i, 0.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(0.0D, i, -1.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(1.0D, i, 1.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(1.0D, i, -1.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(-1.0D, i, 1.0D).getBlock().setType(Material.AIR);
+                            p.getLocation().subtract(-1.0D, i, -1.0D).getBlock().setType(Material.AIR);
+                        }
+                        break;
+
                     case "trade":
                         //trade;0
                         Random r = new Random();
                         int itemTrade = r.nextInt(p.getInventory().getSize());
-                        ItemStack item = tradeOffer(p,itemTrade);
+                        ItemStack item = Main.tradeOffer(p,itemTrade);
                         while(p.getInventory().getItem(itemTrade).getType() == Material.AIR)
                             itemTrade = r.nextInt(p.getInventory().getSize());
                         //Maybe this one
                         while (item.getType() == Material.AIR)
-                            item = tradeOffer(p,itemTrade);
+                            item = Main.tradeOffer(p,itemTrade);
                         p.sendMessage(item.getType().toString());
                         p.getInventory().getItem(itemTrade).setAmount(p.getInventory().getItem(itemTrade).getAmount()-p.getInventory().getItem(itemTrade).getAmount());
                         p.getInventory().addItem(item);
@@ -591,25 +619,7 @@ public final class Main extends JavaPlugin implements Listener {
         }
     }
 
-    ItemStack tradeOffer(Player p, int slot){
-        Random r = new Random();
-        int totalItems = Material.values().length;
-        int item = r.nextInt(totalItems);
-        int amount = r.nextInt(64);
-        Material mat = Material.values()[item];
-
-        return new ItemStack(mat,amount);
-    }
-    void fillInv(Player p, String itemName){
-        // removed the for loop here (we get the player earlier)
-        for (int i = 0; i < p.getInventory().getSize(); i++) {
-            for (int x = 0; x < 64; x++)
-                p.getInventory().addItem(new ItemStack(Material.getMaterial(itemName.toUpperCase(Locale.ROOT))));
-        }
-
-    }
-
-    void tamedWolf(Player p, String name) {
+    static void tamedWolf(Player p, String name) {
         Wolf w = (Wolf) p.getWorld().spawnEntity(p.getLocation(), EntityType.WOLF);
         w.setTamed(true);
         if (name != null)
@@ -648,22 +658,23 @@ public final class Main extends JavaPlugin implements Listener {
         fillInv(p, "COAL");
     }
 
-    void tempClear(Player p, int duration){
-        
+    void tempClear(int duration){
+        for(Player p : Bukkit.getOnlinePlayers()) {
 
-        ItemStack[] items = p.getInventory().getStorageContents();
-        p.getInventory().clear();
-        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
-            @Override
-            public void run() {
-                for (ItemStack i : items)
-                    if (i != null)
-                        p.getInventory().addItem(i);
-            }
-        }, 20 * duration);
+            ItemStack[] items = p.getInventory().getStorageContents();
+            p.getInventory().clear();
+            Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+                @Override
+                public void run() {
+                    for (ItemStack i : items)
+                        if (i != null)
+                            p.getInventory().addItem(i);
+                }
+            }, 20 * duration);
+        }
     }
 
-    void giveHead(Player p, String playerName) { // it does not literally give head ... ;)
+    static void giveHead(Player p, String playerName) { // it does not literally give head ... ;)
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta  = (SkullMeta) skull.getItemMeta();
         meta.setOwner(playerName);
@@ -676,7 +687,7 @@ public final class Main extends JavaPlugin implements Listener {
         p.getInventory().clear();
     }
 
-    void placeBlock(Player p, int x, int y, int z,Material block) {
+    static void placeBlock(Player p, int x, int y, int z, Material block) {
         // place a block at a specific block relitve to the player
         p.getLocation().add(x,y,z).getBlock().setType(block);
         return;
@@ -684,7 +695,9 @@ public final class Main extends JavaPlugin implements Listener {
 
     static void summonTNT(Player p) {
         // summon a TNT entity
-        p.getWorld().spawnEntity(p.getLocation(), EntityType.PRIMED_TNT);
+        TNTPrimed tnt = (TNTPrimed)p.getWorld().spawn(p.getLocation().add(0, 0, 0), TNTPrimed.class);
+
+        //p.getWorld().spawnEntity(p.getLocation(), EntityType.PRIMED_TNT);
     }
 
     static void summonCustom(Player p, String name, String type){
