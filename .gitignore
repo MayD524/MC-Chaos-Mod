@@ -127,3 +127,18 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# exclude .vscode/
+.vscode/
+bin/
+obj/
+
+# exclude other things
+*.jar
+*.exe
+*.so
+*.class
+*.dll
+*.o
+*.pyc

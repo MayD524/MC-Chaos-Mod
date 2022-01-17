@@ -1,7 +1,7 @@
 using System;
 
 
-namespace local_mod
+namespace http_client
 {   
     namespace http_handler 
     {

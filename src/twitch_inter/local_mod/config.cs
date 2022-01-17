@@ -15,9 +15,10 @@ namespace local_mod {
             if (System.IO.File.Exists(configFile)) {
                 string[] lines = System.IO.File.ReadAllLines(configFile);
                 foreach (string line in lines) {
-                    if (line.StartsWith("#") || line.StartsWith("//")) {
+                    if (line.StartsWith("#") || line.StartsWith("//") || line.Length == 0 || line == "\n") {
                         continue;
                     }
+                    line.Trim();
                     string[] split = line.Split('=');
                     Console.WriteLine("Loaded config: " + split[0] + " = " + split[1]);
                     if (split.Length == 2) {

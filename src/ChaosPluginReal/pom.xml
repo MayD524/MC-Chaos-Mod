@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.swedenwarfare</groupId>
-    <artifactId>ChaosPluginReal</artifactId>
+    <artifactId>ChaosPlugin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ChaosPluginReal</name>
+    <name>ChaosPlugin</name>
 
     <properties>
         <java.version>1.8</java.version>

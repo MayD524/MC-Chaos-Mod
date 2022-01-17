@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = local_mod
-build_property.ProjectDir = D:\github\MC-Chaos-Mod\src\twitch_inter\local_mod\
+build_property.ProjectDir = d:\github\MC-Chaos-Mod\src\twitch_inter\local_mod\

@@ -131,6 +131,7 @@ public final class Main extends JavaPlugin implements Listener {
             }
 
             for(Player p : Bukkit.getOnlinePlayers()) {
+                boolean doRandom        = false;
                 String xZRangeNegOrPlus = "";
                 String YRangeNegOrPlus  = "";
                 String player           = "";
@@ -140,7 +141,6 @@ public final class Main extends JavaPlugin implements Listener {
                 int duration            = 0;
                 int xZRange             = 0;
                 int yRange              = 0;
-                boolean doRandom        = false;
 
                 if (args.length < 3) {
                     cmd = args[0];
@@ -152,45 +152,50 @@ public final class Main extends JavaPlugin implements Listener {
                     }
 
                 } else if (args.length < 4) {
-                    cmd = args[0];
+                    cmd      = args[0];
                     duration = Integer.parseInt(args[1]);
-                    other = args[2];
+                    other    = args[2];
+
                 } else if (args.length > 3 && args.length < 5) {
-                    cmd = args[0];
+                    cmd      = args[0];
                     duration = Integer.parseInt(args[1]);
-                    other = args[2];
-                    player = args[3];
+                    other    = args[2];
+                    player   = args[3];
+
                 } else if (args.length > 4 && args.length < 6) {
-                    cmd = args[0];
-                    other = args[1];
+                    cmd      = args[0];
+                    other    = args[1];
                     duration = Integer.parseInt(args[2]);
-                    xZRange = Integer.parseInt(args[3]);
-                    yRange = Integer.parseInt(args[4]);
+                    xZRange  = Integer.parseInt(args[3]);
+                    yRange   = Integer.parseInt(args[4]);
+
                 } else if (args.length > 6) {
-                    cmd = args[0];
+                    cmd      = args[0];
                     System.out.println("Cmd " + cmd);
                     duration = Integer.parseInt(args[1]);
                     System.out.println("Duration " + duration);
-                    other = args[2];
+                    other    = args[2];
                     System.out.println("Other" + other);
-                    dest = args[3];
+                    dest     = args[3];
                     System.out.println("Dest " + dest);
                     doRandom = Boolean.valueOf(args[4]);
                     System.out.println("doRandom " + doRandom);
+
                     if (args[5].startsWith("-")) {
-                        String[] temp = args[5].split("-");
+                        String[] temp    = args[5].split("-");
                         System.out.println(temp[0]);
                         xZRangeNegOrPlus = "-";
-                        xZRange = Integer.parseInt(temp[1]);
+                        xZRange          = Integer.parseInt(temp[1]);
                     } else {
-                        xZRange = Integer.parseInt(args[5]);
+                        xZRange          = Integer.parseInt(args[5]);
                     }
+
                     if (args[6].startsWith("-")) {
-                        String[] temp = args[6].split("-");
-                        YRangeNegOrPlus = "-";
-                        yRange = Integer.parseInt(temp[1]);
+                        String[] temp    = args[6].split("-");
+                        YRangeNegOrPlus  = "-";
+                        yRange           = Integer.parseInt(temp[1]);
                     } else {
-                        yRange = Integer.parseInt(args[6]);
+                        yRange           = Integer.parseInt(args[6]);
                     }
                 }
 
@@ -278,11 +283,12 @@ public final class Main extends JavaPlugin implements Listener {
                                 p.getWorld().setThundering(false);
                                 break;
                         }
-                        p.getWorld().setWeatherDuration(duration);
+                        // update in ticks
+                        p.getWorld().setWeatherDuration(duration * 20);
                         break;
 
                     case "time":
-                        // time;0;type
+                        // time;type
                         switch (other) {
                             case "day":
                                 p.getWorld().setTime(0);
@@ -612,20 +618,19 @@ public final class Main extends JavaPlugin implements Listener {
         fillInv(p, "COAL");
     }
 
-    void tempClear(int duration){
-        for(Player p : Bukkit.getOnlinePlayers()) {
+    void tempClear(Player p, int duration){
+        
 
-            ItemStack[] items = p.getInventory().getStorageContents();
-            p.getInventory().clear();
-            Bukkit.getScheduler().runTaskLater(this, new Runnable() {
-                @Override
-                public void run() {
-                    for (ItemStack i : items)
-                        if (i != null)
-                            p.getInventory().addItem(i);
-                }
-            }, 20 * duration);
-        }
+        ItemStack[] items = p.getInventory().getStorageContents();
+        p.getInventory().clear();
+        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+            @Override
+            public void run() {
+                for (ItemStack i : items)
+                    if (i != null)
+                        p.getInventory().addItem(i);
+            }
+        }, 20 * duration);
     }
 
     void giveHead(Player p, String playerName) { // it does not literally give head ... ;)

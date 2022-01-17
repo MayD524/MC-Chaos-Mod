@@ -1,4 +1,4 @@
-name: ChaosPluginReal
+name: ChaosPlugin
 version: '1.0-SNAPSHOT'
-main: me.swedenwarfare.chaospluginreal.Main
+main: me.swedenwarfare.chaosplugin.Main
 api-version: 1.18
