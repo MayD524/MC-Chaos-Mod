@@ -52,6 +52,7 @@ A Chaos mod made for mc (kinda like gtaV chaos)
   4. Place the **styles.css** in **overlay/css/styles.css**
 <br>
 - Overlay (OBS)
+
   1. Make a web view in OBS pointing to *"overlay/overlay.html"*
   2. Right click the webview and select "Interact" and hit *"start"*
     - Open properties and hit refresh current cache (at the bottom of the properties window)
